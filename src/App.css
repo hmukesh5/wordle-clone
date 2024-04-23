@@ -1,0 +1,23 @@
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("./styles/HelveticaNeueMedium.otf") format("opentype");
+}
+
+:root {
+  --correct: #2298d7;
+  --present: #eb8ae7;
+  --absent: #3a3a3c;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #121213;
+  color: rgb(248, 248, 248);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Helvetica Neue", "Arial", sans-serif;
+  text-transform: uppercase;
+}
+
