@@ -4,7 +4,7 @@ import "../styles/Wordle.css";
 import Row from "./Row";
 import Keyboard from "./Keyboard";
 import {SUCCESS_MSGS, LETTERS, potential_words} from "../data/letters_and_words";
-import {solution_words} from "../data/solutions";
+import {solution_words} from "../../solutions";
 
 const startTime = new Date('2024-04-23T00:00:00'); // CHANGE THIS TO START DATE
 const currTime = new Date();
