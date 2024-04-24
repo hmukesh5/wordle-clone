@@ -59,7 +59,7 @@ export default function Wordle() {
                 toast(SUCCESS_MSGS[activeRowIndex]);
 
                 setCorrectLetters([...SOLUTION]);
-            } else if (!potential_words.includes(currentGuess)) {
+            } else if (!potential_words.includes(currentGuess) && !solution_words.includes(currentGuess)) {
                 setNotification(notification + 1);
                 toast("not in word list");
             } else if (failedGuesses.includes(currentGuess)) {
