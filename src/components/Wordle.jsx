@@ -6,7 +6,7 @@ import Keyboard from "./Keyboard";
 import {SUCCESS_MSGS, LETTERS, potential_words} from "../data/letters_and_words";
 import {solution_words} from "../data/solutions";
 
-const startTime = new Date('2024-04-23T00:00:00');
+const startTime = new Date('2024-04-23T00:00:00'); // CHANGE THIS TO START DATE
 const currTime = new Date();
 const daysSince = Math.floor((currTime - startTime) / (1000 * 60 * 60 * 24));
 const SOLUTION = solution_words[daysSince % solution_words.length];
