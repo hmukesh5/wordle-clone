@@ -46,7 +46,7 @@ export default function Wordle() {
     }
 
     const hitEnter = () => {
-        if (activeRowIndex === 7) return;
+        if (activeRowIndex === 6) return;
         if (activeLetterIndex === 5) {
             const currentGuess = guesses[activeRowIndex];
             if (currentGuess === SOLUTION) {
@@ -81,15 +81,14 @@ export default function Wordle() {
                     ])
                 ]);
 
-                setFailedGuesses([...failedGuesses, currentGuess]);
-                setActiveRowIndex(activeRowIndex + 1);
-                setActiveLetterIndex(0);
-                if (activeRowIndex === 7) {
+                setFailedGuesses([...failedGuesses, currentGuess]);                
+                if (activeRowIndex === 5) {
                     setNotification(0);
-                    toast('{{solution}}', {
-                        duration: Infinity,
-                    });
+                    toast(SOLUTION, {duration: Infinity, style: {textTransform: "uppercase"}});
+                    setSolutionFound(true);
                 }
+                setActiveRowIndex(activeRowIndex + 1);   
+                setActiveLetterIndex(0);                
             }
         } else {
             setNotification(notification + 1);
@@ -116,12 +115,12 @@ export default function Wordle() {
 
     const handleKeyDown = (event) => {
         if (solutionFound) return;
-        if (LETTERS.includes(event.key)) {
+        if (LETTERS.includes(event.key)) {            
             typeLetter(event.key);
             return;
         }
         if (event.key === "Enter") {
-            hitEnter();
+            hitEnter();                       
             return;
         }
         if (event.key === "Backspace") {

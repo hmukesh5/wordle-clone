@@ -6,9 +6,9 @@ export const LETTERS = [
 
 export const SUCCESS_MSGS = [
     "ur hacking",
-    "aww",
-    "wow",
+    "damn ur good",
     "nice",
+    "mmm not bad",
     "could be better",
     "ur terrible",
 ]
