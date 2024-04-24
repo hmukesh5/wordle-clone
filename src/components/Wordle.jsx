@@ -131,7 +131,7 @@ export default function Wordle() {
 
     return (
         <div className="wordle" ref={wordleRef} tabIndex="0" onBlur={(e) => {e.target.focus();}} onKeyDown={handleKeyDown}>
-            <h1 className="title">wordle</h1>
+            <div className="title">wordle<span className="tinytitle"> by hemmy</span></div>
             {/* <div className={`notification ${solutionFound && "notification--green"}`}>{notification}</div> */}
             {guesses.map((guess, index) => {
                 return (

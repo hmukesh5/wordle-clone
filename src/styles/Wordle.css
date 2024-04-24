@@ -10,6 +10,8 @@
 }
 
 .title {
+    font-size: 2rem;
+    font-weight: 800;
     text-transform: lowercase;
     padding: 0.3em;
     padding-left: 0;
@@ -19,6 +21,11 @@
     border-bottom: 0.01px solid var(--absent);
     width: 100vw;
     text-align: center;
+}
+
+.tinytitle {
+    font-size: 1.2rem;
+    font-weight: 500;
 }
   
 .notification {
