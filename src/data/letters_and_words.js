@@ -11,7 +11,7 @@ export const SUCCESS_MSGS = [
     "mmm not bad",
     "could be better",
     "ur terrible",
-]
+];
 
 export const potential_words = [
     "aahed",
