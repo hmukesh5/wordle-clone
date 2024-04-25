@@ -64,7 +64,7 @@ export default function Wordle() {
                 setGuesses([...guesses]);
                 setActiveLetterIndex(0);
                 toast("hi " + solution_words[0] + "!");
-                toast("you're at wordle " + daysSince % solution_words.length + "/" + solution_words.length);
+                setTimeout(() => toast("you're at wordle " + daysSince % solution_words.length + "/" + solution_words.length, {duration: 2000}), 1000);
                 SOLUTION = ALT_SOLUTION;
 
                 // change the color of --present and --correct variables in app.css
@@ -77,7 +77,7 @@ export default function Wordle() {
                 toast(SUCCESS_MSGS[activeRowIndex]);
 
                 setCorrectLetters([...SOLUTION]);
-            } else if (!potential_words.includes(currentGuess) && !solution_words.includes(currentGuess)) {
+            } else if (!potential_words.includes(currentGuess) && (altMode ? !solution_words.includes(currentGuess) : true)) {
                 setNotification(notification + 1);
                 toast("not in word list");
             } else if (failedGuesses.includes(currentGuess)) {
