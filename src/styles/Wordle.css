@@ -17,10 +17,23 @@
     padding-left: 0;
     padding-right: 0;
     margin: 0;
+    text-align: center;
+}
+
+.nav {
+    width: 100vw;
     margin-bottom: 0.2em;
     border-bottom: 0.01px solid var(--absent);
-    width: 100vw;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navdata {
+    min-width: 333px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .title1 {
@@ -34,6 +47,22 @@
     font-size: 1.2rem;
     font-weight: 500;
     color: white;
+}
+
+.sharebutton {
+    max-width: 30px;
+    height: auto;    
+    scale: 0.8;
+}
+
+.enable {
+    visibility: hidden;
+}
+
+.sharebuttonleft {
+    max-width: 30px;
+    height: auto;
+    visibility: hidden;
 }
   
 .notification {

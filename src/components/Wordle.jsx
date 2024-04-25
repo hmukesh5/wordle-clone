@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import "../styles/Wordle.css";
 import Row from "./Row";
 import Keyboard from "./Keyboard";
+import shareicon from "../data/shareicon.png";
 import {SUCCESS_MSGS, LETTERS, potential_words} from "../data/letters_and_words";
 import {solution_words, title1, title2, altTinyTitle} from "../../solutions";
 
@@ -12,8 +13,6 @@ const daysSince = Math.floor((currTime - startTime) / (1000 * 60 * 60 * 24));
 
 let SOLUTION  = potential_words[daysSince % potential_words.length];
 const ALT_SOLUTION = solution_words[daysSince % solution_words.length];
-
-
 
 export default function Wordle() {
     const [guesses, setGuesses] = useState([
@@ -33,6 +32,8 @@ export default function Wordle() {
     const [presentLetters, setPresentLetters] = useState([]);
     const [absentLetters, setAbsentLetters] = useState([]);
     const [altMode, setAltMode] = useState(false);
+    const [index, setIndex] = useState(daysSince % potential_words.length)
+    const [totalLength, setTotalLength] = useState(potential_words.length)
 
     const wordleRef = useRef();
 
@@ -55,7 +56,7 @@ export default function Wordle() {
     }
 
     const hitEnter = () => {
-        if (activeRowIndex === 6) return;
+        if (activeRowIndex >= 6) return;
         if (activeLetterIndex === 5) {
             const currentGuess = guesses[activeRowIndex];
             if (activeRowIndex == 0 && altMode === false && currentGuess === solution_words[0]) {
@@ -65,6 +66,8 @@ export default function Wordle() {
                 setActiveLetterIndex(0);
                 toast("hi " + solution_words[0] + "!");
                 setTimeout(() => toast("you're at wordle " + daysSince % solution_words.length + "/" + solution_words.length, {duration: 2000}), 1000);
+                setIndex(daysSince % solution_words.length);
+                setTotalLength(solution_words.length);
                 SOLUTION = ALT_SOLUTION;
 
                 // change the color of --present and --correct variables in app.css
@@ -108,8 +111,10 @@ export default function Wordle() {
                     setNotification(0);
                     toast(SOLUTION, {duration: Infinity, style: {textTransform: "uppercase"}});
                     setSolutionFound(true);
+                    setActiveRowIndex(10);
+                } else {
+                    setActiveRowIndex(activeRowIndex + 1);   
                 }
-                setActiveRowIndex(activeRowIndex + 1);   
                 setActiveLetterIndex(0);                
             }
         } else {
@@ -150,20 +155,68 @@ export default function Wordle() {
         }
     }
 
+    const share = () => {
+        if (solutionFound) {
+            let shareable = ""
+            altMode ? shareable += title1 + title2 + " " : shareable += "wordle ";
+            shareable += index + " ";
+
+            shareable += activeRowIndex == 10 ? "X" : activeRowIndex+1;
+            shareable += "/6\n";
+
+            let correctsquare = !altMode ? "🟩" : "🟦";
+            let presentsquare = !altMode ? "🟨" : "🟪";
+            let absentsquare = "⬛"
+
+            // loop through activeRowIndex
+            let loopto = activeRowIndex;
+            if (activeRowIndex == 10) {
+                loopto = 5;
+            }
+            for (let i = 0; i <= loopto; i++) {
+                shareable += "\n";
+                // go through each letter of guess
+                let currGuess = guesses[i];
+                for (let j = 0; j < 5; j++) {
+                    let currLetter = currGuess[j];
+                    // if curr letter in solution
+                    if (SOLUTION[j] === currLetter) {
+                        shareable += correctsquare;
+                    } else if (SOLUTION.includes(currLetter)) {
+                        shareable += presentsquare;
+                    } else {
+                        shareable += absentsquare;
+                    }
+                }    
+            }
+
+            navigator.clipboard.writeText(shareable);
+            toast("copied to clipboard");   
+
+        }
+    }
+
     return (
         <div className="wordle" ref={wordleRef} tabIndex="0" onBlur={(e) => {e.target.focus();}} onKeyDown={handleKeyDown}>
-            <div className="title">
-                {altMode ?
-                    <>
-                        <span className="title1">{title1}</span>
-                        <span className="title2">{title2}</span>
-                    </>
-                    :
-                    'wordle'
-                }
-                <span className="tinytitle">
-                {altMode ? altTinyTitle : ' by hemmy'}
-                </span></div>
+            <div className="nav">
+                <div className="navdata">
+                    <img src={shareicon} onClick={share} className="sharebuttonleft"></img>
+                    <div className="title">
+                        {altMode ?
+                            <>
+                                <span className="title1">{title1}</span>
+                                <span className="title2">{title2}</span>
+                            </>
+                            :
+                            'wordle'
+                        }
+                        <span className="tinytitle">
+                        {altMode ? altTinyTitle : ' by hemmy'}
+                        </span>
+                    </div>                
+                    <img src={shareicon} onClick={share} className={`sharebutton ${!solutionFound ? 'enable' : ''}`}></img>
+                </div>
+            </div>
             {guesses.map((guess, index) => {
                 return (
                     <Row
