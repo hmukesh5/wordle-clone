@@ -4,7 +4,7 @@ import "../styles/Wordle.css";
 import Row from "./Row";
 import Keyboard from "./Keyboard";
 import {SUCCESS_MSGS, LETTERS, potential_words} from "../data/letters_and_words";
-import {solution_words} from "../../solutions";
+import {solution_words, title1, title2, altTinyTitle} from "../../solutions";
 
 const startTime = new Date('2024-04-23T00:00:00'); // CHANGE THIS TO START DATE
 const currTime = new Date();
@@ -28,6 +28,7 @@ export default function Wordle() {
     const [correctLetters, setCorrectLetters] = useState([]);
     const [presentLetters, setPresentLetters] = useState([]);
     const [absentLetters, setAbsentLetters] = useState([]);
+    const [altMode, setAltMode] = useState(false);
 
     const wordleRef = useRef();
 
@@ -53,7 +54,13 @@ export default function Wordle() {
         if (activeRowIndex === 6) return;
         if (activeLetterIndex === 5) {
             const currentGuess = guesses[activeRowIndex];
-            if (currentGuess === SOLUTION) {
+            if (activeRowIndex == 0 && altMode === false && currentGuess === solution_words[0]) {
+                setAltMode(true);
+                guesses[activeRowIndex] = "     ";
+                setGuesses([...guesses]);
+                setActiveLetterIndex(0);
+                toast("hi " + solution_words[0] + "!");
+            } else if (currentGuess === SOLUTION) {
                 setSolutionFound(true);
                 setNotification(0);
                 toast(SUCCESS_MSGS[activeRowIndex]);
@@ -134,8 +141,18 @@ export default function Wordle() {
 
     return (
         <div className="wordle" ref={wordleRef} tabIndex="0" onBlur={(e) => {e.target.focus();}} onKeyDown={handleKeyDown}>
-            <div className="title">wordle<span className="tinytitle"> by hemmy</span></div>
-            {/* <div className={`notification ${solutionFound && "notification--green"}`}>{notification}</div> */}
+            <div className="title">
+                {altMode ?
+                    <>
+                        <span className="title1">{title1}</span>
+                        <span className="title2">{title2}</span>
+                    </>
+                    :
+                    'wordle'
+                }
+                <span className="tinytitle">
+                {altMode ? altTinyTitle : ' by hemmy'}
+                </span></div>
             {guesses.map((guess, index) => {
                 return (
                     <Row

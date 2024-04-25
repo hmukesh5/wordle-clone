@@ -23,9 +23,17 @@
     text-align: center;
 }
 
+.title1 {
+    color: var(--present);
+}
+.title2 {
+    color: var(--correct);
+}
+
 .tinytitle {
     font-size: 1.2rem;
     font-weight: 500;
+    color: white;
 }
   
 .notification {
