@@ -9,7 +9,11 @@ import {solution_words, title1, title2, altTinyTitle} from "../../solutions";
 const startTime = new Date('2024-04-23T00:00:00'); // CHANGE THIS TO START DATE
 const currTime = new Date();
 const daysSince = Math.floor((currTime - startTime) / (1000 * 60 * 60 * 24));
-const SOLUTION = solution_words[daysSince % solution_words.length];
+
+let SOLUTION  = potential_words[daysSince % potential_words.length];
+const ALT_SOLUTION = solution_words[daysSince % solution_words.length];
+
+
 
 export default function Wordle() {
     const [guesses, setGuesses] = useState([
@@ -60,6 +64,13 @@ export default function Wordle() {
                 setGuesses([...guesses]);
                 setActiveLetterIndex(0);
                 toast("hi " + solution_words[0] + "!");
+                toast("you're at wordle " + daysSince % solution_words.length + "/" + solution_words.length);
+                SOLUTION = ALT_SOLUTION;
+
+                // change the color of --present and --correct variables in app.css
+                document.documentElement.style.setProperty('--present', '#eb8ae7');
+                document.documentElement.style.setProperty('--correct', '#2298d7');
+
             } else if (currentGuess === SOLUTION) {
                 setSolutionFound(true);
                 setNotification(0);

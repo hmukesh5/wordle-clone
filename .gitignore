@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 solutions.js
+src/data/test.js
+src/data/test.txt
