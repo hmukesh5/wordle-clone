@@ -7,7 +7,7 @@ import shareicon from "../data/shareicon.png";
 import {SUCCESS_MSGS, LETTERS, potential_words} from "../data/letters_and_words";
 import {solution_words, title1, title2, altTinyTitle} from "../../solutions";
 
-const startTime = new Date('2024-04-23T00:00:00'); // CHANGE THIS TO START DATE
+const startTime = new Date('2024-04-26T00:00:00'); // CHANGE THIS TO START DATE
 const currTime = new Date();
 const daysSince = Math.floor((currTime - startTime) / (1000 * 60 * 60 * 24));
 
@@ -214,7 +214,7 @@ export default function Wordle() {
                             'wordle'
                         }
                         <span className="tinytitle">
-                        {altMode ? altTinyTitle : ' by hemmy'}
+                        {altMode ? altTinyTitle : ' by hemanth'}
                         </span>
                     </div>                
                     <img src={shareicon} onClick={share} className={`sharebutton ${!enableShare ? 'enable' : ''}`}></img>
