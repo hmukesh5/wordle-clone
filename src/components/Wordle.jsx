@@ -34,6 +34,7 @@ export default function Wordle() {
     const [altMode, setAltMode] = useState(false);
     const [index, setIndex] = useState(daysSince % potential_words.length)
     const [totalLength, setTotalLength] = useState(potential_words.length)
+    const [enableShare, setEnableShare] = useState(false)
 
     const wordleRef = useRef();
 
@@ -77,8 +78,8 @@ export default function Wordle() {
             } else if (currentGuess === SOLUTION) {
                 setSolutionFound(true);
                 setNotification(0);
-                toast(SUCCESS_MSGS[activeRowIndex]);
-
+                setTimeout(() => toast(SUCCESS_MSGS[activeRowIndex]), 1000);
+                setTimeout(() => setEnableShare(true), 1000);
                 setCorrectLetters([...SOLUTION]);
             } else if (!potential_words.includes(currentGuess) && (altMode ? !solution_words.includes(currentGuess) : true)) {
                 setNotification(notification + 1);
@@ -109,7 +110,9 @@ export default function Wordle() {
                 setFailedGuesses([...failedGuesses, currentGuess]);                
                 if (activeRowIndex === 5) {
                     setNotification(0);
-                    toast(SOLUTION, {duration: Infinity, style: {textTransform: "uppercase"}});
+                     
+                    setTimeout(() => toast(SOLUTION, {duration: Infinity, style: {textTransform: "uppercase"}}), 1000);
+                    setTimeout(() => setEnableShare(true), 1000);
                     setSolutionFound(true);
                     setActiveRowIndex(10);
                 } else {
@@ -214,7 +217,7 @@ export default function Wordle() {
                         {altMode ? altTinyTitle : ' by hemmy'}
                         </span>
                     </div>                
-                    <img src={shareicon} onClick={share} className={`sharebutton ${!solutionFound ? 'enable' : ''}`}></img>
+                    <img src={shareicon} onClick={share} className={`sharebutton ${!enableShare ? 'enable' : ''}`}></img>
                 </div>
             </div>
             {guesses.map((guess, index) => {
