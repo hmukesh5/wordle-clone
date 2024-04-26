@@ -162,10 +162,11 @@ export default function Wordle() {
         if (solutionFound) {
             let shareable = ""
             altMode ? shareable += title1 + title2 + " " : shareable += "wordle ";
-            shareable += index + " ";
+            shareable += "by hemmy\n";
+            shareable += index + "/" + totalLength + " ";
 
             shareable += activeRowIndex == 10 ? "X" : activeRowIndex+1;
-            shareable += "/6\n";
+            shareable += "/6";
 
             let correctsquare = !altMode ? "🟩" : "🟦";
             let presentsquare = !altMode ? "🟨" : "🟪";
