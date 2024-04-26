@@ -162,7 +162,7 @@ export default function Wordle() {
         if (solutionFound) {
             let shareable = ""
             altMode ? shareable += title1.substring(0, 1).toUpperCase() + title2.substring(1) + " " : shareable += "Wordle ";
-            shareable += index + " ";
+            shareable += (index+1) + " ";
 
             shareable += activeRowIndex == 10 ? "X" : activeRowIndex+1;
             shareable += "/6\n";
