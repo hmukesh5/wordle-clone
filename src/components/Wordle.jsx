@@ -12,7 +12,7 @@ const currTime = new Date();
 const daysSince = Math.floor((currTime - startTime) / (1000 * 60 * 60 * 24));
 
 let SOLUTION  = potential_words[daysSince % potential_words.length];
-const ALT_SOLUTION = solution_words[daysSince % solution_words.length];
+const ALT_SOLUTION = solution_words[(daysSince % (solution_words.length - 1) + 1)];
 
 export default function Wordle() {
     const [guesses, setGuesses] = useState([
@@ -67,7 +67,7 @@ export default function Wordle() {
                 setActiveLetterIndex(0);
                 toast("hi " + solution_words[0] + "!");
                 setTimeout(() => toast("you're on " + title1 + title2 + " " + daysSince % solution_words.length + "/" + solution_words.length, {duration: 2000}), 1000);
-                setIndex((daysSince % (solution_words.length-1))+1);
+                setIndex((daysSince % (solution_words.length-1)));
                 setTotalLength(solution_words.length-1);
                 SOLUTION = ALT_SOLUTION;
 
