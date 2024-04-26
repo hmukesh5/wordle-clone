@@ -6,6 +6,7 @@ import Keyboard from "./Keyboard";
 import shareicon from "../data/shareicon.png";
 import {SUCCESS_MSGS, LETTERS, potential_words} from "../data/letters_and_words";
 import {solution_words, title1, title2, altTinyTitle} from "../../solutions";
+import Info from "./Info";
 
 const startTime = new Date('2024-04-26T00:00:00'); // CHANGE THIS TO START DATE
 const currTime = new Date();
@@ -35,6 +36,7 @@ export default function Wordle() {
     const [index, setIndex] = useState(daysSince % potential_words.length)
     const [totalLength, setTotalLength] = useState(potential_words.length)
     const [enableShare, setEnableShare] = useState(false)
+    const [showInfo, setShowInfo] = useState(false);
 
     const wordleRef = useRef();
 
@@ -62,11 +64,14 @@ export default function Wordle() {
             const currentGuess = guesses[activeRowIndex];
             if (activeRowIndex == 0 && altMode === false && currentGuess === solution_words[0]) {
                 setAltMode(true);
+                if (daysSince == 0) {
+                    setShowInfo(true);
+                }
                 guesses[activeRowIndex] = "     ";
                 setGuesses([...guesses]);
                 setActiveLetterIndex(0);
                 toast("hi " + solution_words[0] + "!");
-                setTimeout(() => toast("you're on " + title1 + title2 + " " + daysSince % solution_words.length + "/" + solution_words.length, {duration: 2000}), 1000);
+                setTimeout(() => toast("you're on " + title1 + title2 + " " + ((daysSince % (solution_words.length-1))+1) + "/" + (solution_words.length-1), {duration: 2000}), 1000);
                 setIndex((daysSince % (solution_words.length-1)));
                 setTotalLength(solution_words.length-1);
                 SOLUTION = ALT_SOLUTION;
@@ -248,6 +253,7 @@ export default function Wordle() {
                 hitEnter={hitEnter}
                 hitBackspace={hitBackspace}
             />
+            {showInfo && <Info infoprop={setShowInfo}/>}
         </div>
     );
 }

@@ -26,3 +26,5 @@ dist-ssr
 solutions.js
 src/data/test.js
 src/data/test.txt
+src/components/Message.jsx
+Message.jsx
