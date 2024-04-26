@@ -78,3 +78,12 @@
 .notification--green {
     color: #538d4e;
 }
+
+@media only screen and (max-width: 600px) {
+    .title {
+        font-size: 1.8rem;
+    }
+    .tinytitle {
+        font-size: 1rem;
+    }
+}

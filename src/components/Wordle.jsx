@@ -66,7 +66,7 @@ export default function Wordle() {
                 setGuesses([...guesses]);
                 setActiveLetterIndex(0);
                 toast("hi " + solution_words[0] + "!");
-                setTimeout(() => toast("you're at wordle " + daysSince % solution_words.length + "/" + solution_words.length, {duration: 2000}), 1000);
+                setTimeout(() => toast("you're on " + title1 + title2 + " " + daysSince % solution_words.length + "/" + solution_words.length, {duration: 2000}), 1000);
                 setIndex(daysSince % solution_words.length);
                 setTotalLength(solution_words.length);
                 SOLUTION = ALT_SOLUTION;
@@ -161,12 +161,11 @@ export default function Wordle() {
     const share = () => {
         if (solutionFound) {
             let shareable = ""
-            altMode ? shareable += title1 + title2 + " " : shareable += "wordle ";
-            shareable += "by hemmy\n";
-            shareable += index + "/" + totalLength + " ";
+            altMode ? shareable += title1.substring(0, 1).toUpperCase() + title2.substring(1) + " " : shareable += "Wordle ";
+            shareable += index + " ";
 
             shareable += activeRowIndex == 10 ? "X" : activeRowIndex+1;
-            shareable += "/6";
+            shareable += "/6\n";
 
             let correctsquare = !altMode ? "🟩" : "🟦";
             let presentsquare = !altMode ? "🟨" : "🟪";
