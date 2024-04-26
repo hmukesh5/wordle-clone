@@ -67,8 +67,8 @@ export default function Wordle() {
                 setActiveLetterIndex(0);
                 toast("hi " + solution_words[0] + "!");
                 setTimeout(() => toast("you're on " + title1 + title2 + " " + daysSince % solution_words.length + "/" + solution_words.length, {duration: 2000}), 1000);
-                setIndex(daysSince % solution_words.length);
-                setTotalLength(solution_words.length);
+                setIndex((daysSince % (solution_words.length-1))+1);
+                setTotalLength(solution_words.length-1);
                 SOLUTION = ALT_SOLUTION;
 
                 // change the color of --present and --correct variables in app.css
