@@ -4,6 +4,7 @@ import "../styles/Wordle.css";
 import Row from "./Row";
 import Keyboard from "./Keyboard";
 import shareicon from "../data/shareicon.png";
+import hearticon from "../data/hearticon.png";
 import {SUCCESS_MSGS, LETTERS, potential_words} from "../data/letters_and_words";
 import {solution_words, title1, title2, altTinyTitle} from "../../solutions";
 import Info from "./Info";
@@ -204,11 +205,15 @@ export default function Wordle() {
         }
     }
 
+    const heart_click = () => {
+        if (showInfo == false) setShowInfo(true);
+    }
+
     return (
         <div className="wordle" ref={wordleRef} tabIndex="0" onBlur={(e) => {e.target.focus();}} onKeyDown={handleKeyDown}>
             <div className="nav">
                 <div className="navdata">
-                    <img src={shareicon} onClick={share} className="sharebuttonleft"></img>
+                    <img src={hearticon} onClick={heart_click} className={`heartbutton ${!altMode ? 'enable' : ''}`}></img>
                     <div className="title">
                         {altMode ?
                             <>

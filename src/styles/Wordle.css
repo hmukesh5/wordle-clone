@@ -55,6 +55,11 @@
     scale: 0.8;
 }
 
+.heartbutton {
+    max-width: 30px;
+    height: auto;
+}
+
 .enable {
     visibility: hidden;
 }
