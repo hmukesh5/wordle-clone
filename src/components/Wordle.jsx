@@ -198,6 +198,7 @@ export default function Wordle() {
                     }
                 }    
             }
+            if (altMode) shareable += "\n\n" + ALT_SOLUTION;
 
             navigator.clipboard.writeText(shareable);
             toast("copied to clipboard");   
