@@ -198,7 +198,7 @@ export default function Wordle() {
                     }
                 }    
             }
-            if (altMode) shareable += "\n\n" + ALT_SOLUTION;
+            if (altMode) shareable += "\n\n" + ALT_SOLUTION.toUpperCase();
 
             navigator.clipboard.writeText(shareable);
             toast("copied to clipboard");   
