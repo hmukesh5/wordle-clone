@@ -38,6 +38,7 @@ export default function Wordle() {
     const [totalLength, setTotalLength] = useState(potential_words.length)
     const [enableShare, setEnableShare] = useState(false)
     const [showInfo, setShowInfo] = useState(false);
+    const [isDone, setIsDone] = useState(false);
 
     const wordleRef = useRef();
 
@@ -64,13 +65,18 @@ export default function Wordle() {
         if (activeLetterIndex === 5) {
             const currentGuess = guesses[activeRowIndex];
             if (activeRowIndex == 0 && altMode === false && currentGuess === solution_words[0]) {
-                setAltMode(true);
-                if (daysSince == 0) {
-                    setShowInfo(true);
-                }
                 guesses[activeRowIndex] = "     ";
                 setGuesses([...guesses]);
                 setActiveLetterIndex(0);
+                if (daysSince+1 > solution_words.length-1) {
+                    setIsDone(true);
+                    toast("all good things must come to an end...");
+                    return;
+                }
+                setAltMode(true);
+                if (daysSince == 0) {
+                    setShowInfo(true);
+                }                
                 toast("hi " + solution_words[0] + "!");
                 setTimeout(() => toast("you're on " + title1 + title2 + " " + ((daysSince % (solution_words.length-1))+1) + "/" + (solution_words.length-1), {duration: 2000}), 1000);
                 setIndex((daysSince % (solution_words.length-1)));
@@ -214,7 +220,7 @@ export default function Wordle() {
         <div className="wordle" ref={wordleRef} tabIndex="0" onBlur={(e) => {e.target.focus();}} onKeyDown={handleKeyDown}>
             <div className="nav">
                 <div className="navdata">
-                    <img src={hearticon} onClick={heart_click} className={`heartbutton ${!altMode ? 'enable' : ''}`}></img>
+                    <img src={hearticon} onClick={heart_click} className={`heartbutton ${(!altMode && !isDone) ? 'disable' : ''}`}></img>
                     <div className="title">
                         {altMode ?
                             <>
@@ -228,7 +234,7 @@ export default function Wordle() {
                         {altMode ? altTinyTitle : ' by hemanth'}
                         </span>
                     </div>                
-                    <img src={shareicon} onClick={share} className={`sharebutton ${!enableShare ? 'enable' : ''}`}></img>
+                    <img src={shareicon} onClick={share} className={`sharebutton ${!enableShare ? 'disable' : ''}`}></img>
                 </div>
             </div>
             {guesses.map((guess, index) => {
